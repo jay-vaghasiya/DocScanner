@@ -1,16 +1,18 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
     namespace = "com.jay.docscanner"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.jay.docscanner"
         minSdk = 29
-        targetSdk = 34
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -33,14 +35,9 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
+
     buildFeatures {
         compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
     }
     packaging {
         resources {
@@ -48,7 +45,11 @@ android {
         }
     }
 }
-
+kotlin {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8)
+    }
+}
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -70,4 +71,6 @@ dependencies {
 
     implementation(libs.play.services.mlkit.document.scanner)
     implementation(libs.coil.compose)
+
+    implementation(libs.androidx.navigation.compose)
 }
